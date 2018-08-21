@@ -1,39 +1,71 @@
 
-
-enum Instructions {
+pub enum Instructions {
     ClearScreen,                              //00E0
+
     Return,                                   //00EE
+
     JumpToAddress(u16),                       //1NNN
+
     CallSub(u16),                             //2NNN
+
     SkipIfEqual { x: u8, value: u8 },         //3XNN
+
     SkipIfNotEqualValue { x: u8, value: u8 }, //4XNN
+
     SkipIfRegEqual { x: u8, y: u8 },          //5XY0
+
     SetValueToReg { x: u8, value: u8 },       //6XNN
+
     AddValueToReg { x: u8, value: u8 },       //7XNN (Don't change carry flag)
+
     AssignValueToReg { x: u8, y: u8 },        //8XY0
+
     AssignOrValue { x: u8, y: u8 },           //8XY1
+
     AssignAndValue { x: u8, y: u8 },          //8XY2
+
     AssignXorValue { x: u8, y: u8 },          //8XY3
+
     AssignAddValue { x: u8, y: u8 },          //8XY4, need to change carry flag if neccesary
+
     AssignSubValue { x: u8, y: u8 }, //8XY5, Vx -= Vy, VF is set to 0 when there's a borrow, and 1 when there isn't.
+
     ShiftRight { x: u8 }, //8XY6, Stores the least significant bit of VX in VF and then shifts VX to the right by 1
+
     AssignMinusValue { x: u8, y: u8 }, //8XY7, Vx=Vy-Vx, VF is set to 0 when there's a borrow, and 1 when there isn't.
+
     ShiftLeft { x: u8 }, //8XYE, Stores the most significant bit of VX in VF and then shifts VX to the left by 1
-    SkilIfRegNotEqual { x: u8, y: u8 }, //9XY0, if(Vx!=Vy)
+
+    SkipIfRegNotEqual { x: u8, y: u8 }, //9XY0, if(Vx!=Vy)
+
     SetMem { value: u16 }, //ANNN
+
     JumpToValue { value: u16 }, //BNNN, PC=V0+NNN
+
     RandomAnd { x: u8, value: u8 }, //CXNN, Vx=rand()&NN
+
     Display { x: u8, y: u8, value: u8 }, //DXYN, draw(Vx,Vy,8,N)
+
     PressedKey { x: u8 }, //EX9E, if(key()==Vx), skip
+
     NotPressedKey { x: u8 }, //EXA1, if(key()!=Vx), skip
+
     SetValueToDelayTimer { x: u8 }, //FX07,
+
     WaitForKey { x: u8 }, //FX0A
+
     SetDelayTimerToReg { x: u8 }, //FX15
+
     SetSoundTimerTOReg { x: u8 }, //FX18
+
     SetIFromReg { x: u8 }, //FX1E
+
     SetIFromSprite { x: u8 }, //FX29
+
     BCD { x: u8 },       //FX33
+
     RegDump { x: u8 },   //FX55
+
     RegLoad { x: u8 },   //FX65
 }
 
@@ -102,7 +134,7 @@ impl From<u16> for Instructions {
 
                 _ => panic!("invalid opcode"),
             },
-            0x9 => Instructions::SkilIfRegNotEqual {
+            0x9 => Instructions::SkipIfRegNotEqual {
                 x: x(&opcode),
                 y: y(&opcode),
             },

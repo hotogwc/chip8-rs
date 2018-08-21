@@ -6,3 +6,4 @@ authors = ["wangchi <addictedtoelixie@gmail.com>"]
 [dependencies]
 byteorder = "1.2.4"
 sdl2 = "0.31.0"
+rand = "0.5.5"
