@@ -1,6 +1,5 @@
-// extern crate bitrange;
-// use bitrange::BitRange;
-#[derive(PartialEq)]
+
+
 enum Instructions {
     ClearScreen,                              //00E0
     Return,                                   //00EE
