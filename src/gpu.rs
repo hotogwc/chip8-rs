@@ -57,7 +57,7 @@ impl GPU {
         let sdl_context = sdl2::init().map_err(|e| GpuError::from(e))?;
         let video_subsystem = sdl_context.video().map_err(|e| GpuError::from(e))?;
         let window = video_subsystem
-            .window("CHIP-8", 640, 320)
+            .window("CHIP-8", 640, 400)
             .position_centered()
             .opengl()
             .build()
