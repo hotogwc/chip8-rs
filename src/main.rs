@@ -12,6 +12,7 @@ use std::env;
 mod cpu;
 mod gpu;
 mod instructions;
+mod bitrange;
 
 use cpu::*;
 use gpu::*;
@@ -30,7 +31,7 @@ fn main() {
         Err(e) => panic!("fail to init cpu: error: {:?}", e),
     };
 
-    cpu.gpu.show();
+    // cpu.gpu.show();
 
     let mut event_pump = cpu.gpu.ctx.event_pump().unwrap();
     let mut frame_last = Instant::now();
